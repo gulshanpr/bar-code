@@ -84,6 +84,55 @@ body {
   color: #6b7280;
 }
 
+/* ── Logo upload row ─────────────────────────────── */
+.logo-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.logo-label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #374151;
+  cursor: pointer;
+}
+
+.logo-file-input {
+  font-size: 12px;
+  color: #6b7280;
+  cursor: pointer;
+}
+
+.logo-preview {
+  height: 36px;
+  width: auto;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  padding: 2px;
+  background: #fff;
+  object-fit: contain;
+}
+
+.btn-ghost {
+  padding: 4px 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 5px;
+  font-size: 12px;
+  background: transparent;
+  color: #6b7280;
+  cursor: pointer;
+}
+
+.btn-ghost:hover {
+  background: #f3f4f6;
+  color: #374151;
+}
+
 /* ── A4 page preview (screen only) ──────────────── */
 .page-wrapper {
   background: #d1d5db;
@@ -115,6 +164,15 @@ body {
   padding: 2mm 2mm 1.5mm;
   background: #fff;
   overflow: hidden;
+}
+
+.barcode-logo {
+  display: block;
+  max-height: 10mm;
+  width: auto;
+  max-width: 100%;
+  margin: 0 auto 1.5mm;
+  object-fit: contain;
 }
 
 .barcode-img {
@@ -175,6 +233,15 @@ body {
     border: 0.3mm solid #aaa !important;
     padding: 2mm !important;
     background: #fff !important;
+  }
+
+  .barcode-logo {
+    display: block !important;
+    max-height: 10mm !important;
+    width: auto !important;
+    max-width: 100% !important;
+    margin: 0 auto 1.5mm !important;
+    object-fit: contain !important;
   }
 
   .barcode-img {

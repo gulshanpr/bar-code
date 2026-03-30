@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import bwipjs from "bwip-js/browser";
 
-function BarcodeCard({ value }: { value: string }) {
+function BarcodeCard({ value, logo }: { value: string; logo: string }) {
   const [src, setSrc] = useState("");
   const [err, setErr] = useState("");
 
@@ -30,6 +30,7 @@ function BarcodeCard({ value }: { value: string }) {
 
   return (
     <div className="barcode-card">
+      {logo && <img src={logo} alt="logo" className="barcode-logo" />}
       {err ? (
         <p className="barcode-err">{err}</p>
       ) : src ? (
@@ -42,9 +43,18 @@ function BarcodeCard({ value }: { value: string }) {
 export default function Home() {
   const [input, setInput] = useState("");
   const [barcodes, setBarcodes] = useState<string[]>([]);
+  const [logo, setLogo] = useState("");
 
   const generate = () =>
     setBarcodes(input.split("\n").map((l) => l.trim()).filter(Boolean));
+
+  const handleLogo = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => setLogo(reader.result as string);
+    reader.readAsDataURL(file);
+  };
 
   return (
     <>
@@ -57,6 +67,28 @@ export default function Home() {
           value={input}
           onChange={(e) => setInput(e.target.value)}
         />
+        <div className="logo-row">
+          <label className="logo-label">
+            Logo (optional)
+            <input
+              type="file"
+              accept="image/*"
+              className="logo-file-input"
+              onChange={handleLogo}
+            />
+          </label>
+          {logo && (
+            <>
+              <img src={logo} alt="preview" className="logo-preview" />
+              <button
+                className="btn-ghost"
+                onClick={() => setLogo("")}
+              >
+                Remove
+              </button>
+            </>
+          )}
+        </div>
         <div className="control-actions">
           <button className="btn-primary" onClick={generate}>
             Generate
@@ -77,7 +109,7 @@ export default function Home() {
           <div className="a4-sheet">
             <div className="barcode-grid">
               {barcodes.map((v, i) => (
-                <BarcodeCard key={i} value={v} />
+                <BarcodeCard key={i} value={v} logo={logo} />
               ))}
             </div>
           </div>
