@@ -18,9 +18,112 @@ body {
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
 }
 
+/* ── Controls panel ─────────────────────────────── */
+.controls-panel {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 28px 24px 20px;
+}
+
+.app-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 14px;
+  color: #111;
+}
+
+.barcode-input {
+  width: 100%;
+  padding: 10px 12px;
+  font-family: monospace;
+  font-size: 13px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  resize: vertical;
+  background: #fff;
+  box-sizing: border-box;
+}
+
+.control-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.btn-primary,
+.btn-secondary {
+  padding: 8px 20px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: #2563eb;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: #1d4ed8;
+}
+
+.btn-secondary {
+  background: #e5e7eb;
+  color: #111;
+}
+
+.btn-secondary:hover {
+  background: #d1d5db;
+}
+
+.count-badge {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+/* ── Barcode grid ────────────────────────────────── */
+.barcode-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8mm 5mm;
+  padding: 10mm 12mm;
+}
+
+.barcode-card {
+  border: 0.4mm solid #d1d5db;
+  border-radius: 4px;
+  padding: 3mm 3mm 2mm;
+  background: #fff;
+  overflow: hidden;
+}
+
+.barcode-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  /* No SVG scaling quirks — this is a PNG bitmap */
+}
+
+.barcode-err {
+  color: #dc2626;
+  font-size: 11px;
+  word-break: break-all;
+}
+
+/* ── Print styles ────────────────────────────────── */
 @media print {
+  *,
+  *::before,
+  *::after {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
   body {
-    background: white !important;
+    background: #fff !important;
     margin: 0 !important;
     padding: 0 !important;
   }
@@ -29,15 +132,33 @@ body {
     display: none !important;
   }
 
-  .a4-sheet {
-    box-shadow: none !important;
+  .barcode-grid {
+    display: grid !important;
+    /* 3 equal columns fitting the printable A4 width */
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 5mm 4mm !important;
+    padding: 0 !important;
     margin: 0 !important;
-    border: none !important;
-    page-break-after: always;
+    width: 100% !important;
+  }
+
+  .barcode-card {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    border: 0.3mm solid #aaa !important;
+    padding: 2mm !important;
+    background: #fff !important;
+  }
+
+  .barcode-img {
+    display: block !important;
+    /* fill the cell; bitmap scales cleanly with no bar-width distortion */
+    width: 100% !important;
+    height: auto !important;
   }
 
   @page {
-    size: A4;
+    size: A4 portrait;
     margin: 8mm;
   }
 }

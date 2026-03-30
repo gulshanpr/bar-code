@@ -1,68 +1,84 @@
 "use client";
 
-import { useState } from "react";
-import Barcode from "react-barcode";
+import { useState, useEffect } from "react";
+import bwipjs from "bwip-js/browser";
 
-const COLS = 3;
+function BarcodeCard({ value }: { value: string }) {
+  const [src, setSrc] = useState("");
+  const [err, setErr] = useState("");
+
+  useEffect(() => {
+    const canvas = document.createElement("canvas");
+    try {
+      bwipjs.toCanvas(canvas, {
+        bcid: "code128",
+        text: value,
+        scale: 4,
+        height: 14,
+        includetext: true,
+        textxalign: "center",
+        textsize: 10,
+        paddingwidth: 6,
+        paddingheight: 4,
+      });
+      setSrc(canvas.toDataURL("image/png"));
+      setErr("");
+    } catch (e) {
+      setErr(String(e));
+    }
+  }, [value]);
+
+  return (
+    <div className="barcode-card">
+      {err ? (
+        <p className="barcode-err">{err}</p>
+      ) : src ? (
+        <img src={src} alt={value} className="barcode-img" />
+      ) : null}
+    </div>
+  );
+}
 
 export default function Home() {
   const [input, setInput] = useState("");
   const [barcodes, setBarcodes] = useState<string[]>([]);
 
+  const generate = () =>
+    setBarcodes(input.split("\n").map((l) => l.trim()).filter(Boolean));
+
   return (
     <>
-      <div className="no-print" style={{ padding: 20 }}>
+      <div className="no-print controls-panel">
+        <h1 className="app-title">Barcode 128 Generator</h1>
         <textarea
+          className="barcode-input"
           rows={6}
-          style={{ width: "100%", fontFamily: "monospace" }}
-          placeholder="One barcode value per line"
+          placeholder="Enter one value per line…"
           value={input}
           onChange={(e) => setInput(e.target.value)}
         />
-        <br />
-        <button
-          onClick={() =>
-            setBarcodes(input.split("\n").map((l) => l.trim()).filter(Boolean))
-          }
-        >
-          Generate
-        </button>
-        {barcodes.length > 0 && (
-          <button onClick={() => window.print()} style={{ marginLeft: 8 }}>
-            Print
+        <div className="control-actions">
+          <button className="btn-primary" onClick={generate}>
+            Generate
           </button>
-        )}
-        {barcodes.length > 0 && (
-          <span style={{ marginLeft: 8, fontSize: 13 }}>
-            {barcodes.length} barcodes
-          </span>
-        )}
-      </div>
-
-      <div style={{ padding: "8mm 10mm" }}>
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: `repeat(${COLS}, 1fr)`,
-            gap: "6mm 4mm",
-          }}
-        >
-          {barcodes.map((v, i) => (
-            <div key={i} style={{ border: "0.3mm solid #ccc", padding: "2mm 3mm" }}>
-              <Barcode
-                value={v}
-                format="CODE128"
-                renderer="svg"
-                width={2}
-                height={56}
-                margin={6}
-                displayValue
-                fontSize={14}
-              />
-            </div>
-          ))}
+          {barcodes.length > 0 && (
+            <button className="btn-secondary" onClick={() => window.print()}>
+              Print
+            </button>
+          )}
+          {barcodes.length > 0 && (
+            <span className="count-badge">{barcodes.length} barcodes</span>
+          )}
         </div>
       </div>
+
+      {barcodes.length > 0 && (
+        <div className="barcode-grid">
+          {barcodes.map((v, i) => (
+            <BarcodeCard key={i} value={v} />
+          ))}
+        </div>
+      )}
     </>
   );
 }
