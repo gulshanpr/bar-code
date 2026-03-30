@@ -168,7 +168,7 @@ body {
 
 .barcode-logo {
   display: block;
-  max-height: 10mm;
+  max-height: 11mm;
   width: auto;
   max-width: 100%;
   margin: 0 auto 1.5mm;
@@ -179,6 +179,16 @@ body {
   display: block;
   width: 100%;
   height: auto;
+}
+
+.barcode-footer {
+  text-align: center;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: #111;
+  margin: 1.5mm 0 0;
+  text-transform: uppercase;
 }
 
 .barcode-err {
@@ -235,9 +245,18 @@ body {
     background: #fff !important;
   }
 
+  .barcode-footer {
+    text-align: center !important;
+    font-size: 9px !important;
+    font-weight: 600 !important;
+    color: #111 !important;
+    margin: 1.5mm 0 0 !important;
+    text-transform: uppercase !important;
+  }
+
   .barcode-logo {
     display: block !important;
-    max-height: 10mm !important;
+    max-height: 11mm !important;
     width: auto !important;
     max-width: 100% !important;
     margin: 0 auto 1.5mm !important;
