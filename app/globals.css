@@ -84,18 +84,35 @@ body {
   color: #6b7280;
 }
 
+/* ── A4 page preview (screen only) ──────────────── */
+.page-wrapper {
+  background: #d1d5db;
+  padding: 24px 20px 40px;
+  min-height: 60vh;
+}
+
+.a4-sheet {
+  width: 210mm;
+  min-height: 297mm;
+  background: #fff;
+  margin: 0 auto;
+  padding: 8mm;
+  box-sizing: border-box;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+}
+
 /* ── Barcode grid ────────────────────────────────── */
 .barcode-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 8mm 5mm;
-  padding: 10mm 12mm;
+  gap: 5mm 4mm;
+  width: 100%;
 }
 
 .barcode-card {
   border: 0.4mm solid #d1d5db;
-  border-radius: 4px;
-  padding: 3mm 3mm 2mm;
+  border-radius: 3px;
+  padding: 2mm 2mm 1.5mm;
   background: #fff;
   overflow: hidden;
 }
@@ -104,7 +121,6 @@ body {
   display: block;
   width: 100%;
   height: auto;
-  /* No SVG scaling quirks — this is a PNG bitmap */
 }
 
 .barcode-err {
@@ -132,13 +148,24 @@ body {
     display: none !important;
   }
 
+  /* Strip the screen-only sheet decoration */
+  .page-wrapper {
+    background: transparent !important;
+    padding: 0 !important;
+  }
+
+  .a4-sheet {
+    width: 100% !important;
+    min-height: unset !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+  }
+
   .barcode-grid {
     display: grid !important;
-    /* 3 equal columns fitting the printable A4 width */
     grid-template-columns: repeat(3, 1fr) !important;
     gap: 5mm 4mm !important;
-    padding: 0 !important;
-    margin: 0 !important;
     width: 100% !important;
   }
 
@@ -152,7 +179,6 @@ body {
 
   .barcode-img {
     display: block !important;
-    /* fill the cell; bitmap scales cleanly with no bar-width distortion */
     width: 100% !important;
     height: auto !important;
   }

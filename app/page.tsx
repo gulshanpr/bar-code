@@ -73,10 +73,14 @@ export default function Home() {
       </div>
 
       {barcodes.length > 0 && (
-        <div className="barcode-grid">
-          {barcodes.map((v, i) => (
-            <BarcodeCard key={i} value={v} />
-          ))}
+        <div className="page-wrapper">
+          <div className="a4-sheet">
+            <div className="barcode-grid">
+              {barcodes.map((v, i) => (
+                <BarcodeCard key={i} value={v} />
+              ))}
+            </div>
+          </div>
         </div>
       )}
     </>
