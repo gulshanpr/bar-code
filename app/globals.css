@@ -18,125 +18,10 @@ body {
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
 }
 
-/* ── Controls panel ─────────────────────────────── */
-.controls-panel {
-  max-width: 680px;
-  margin: 0 auto;
-  padding: 28px 24px 20px;
-}
-
-.app-title {
-  font-size: 1.3rem;
-  font-weight: 700;
-  margin-bottom: 14px;
-  color: #111;
-}
-
-.barcode-input {
-  width: 100%;
-  padding: 10px 12px;
-  font-family: monospace;
-  font-size: 13px;
-  border: 1px solid #d1d5db;
-  border-radius: 6px;
-  resize: vertical;
-  background: #fff;
-  box-sizing: border-box;
-}
-
-.control-actions {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-top: 12px;
-}
-
-.btn-primary,
-.btn-secondary {
-  padding: 8px 20px;
-  border: none;
-  border-radius: 6px;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.btn-primary {
-  background: #2563eb;
-  color: #fff;
-}
-
-.btn-primary:hover {
-  background: #1d4ed8;
-}
-
-.btn-secondary {
-  background: #e5e7eb;
-  color: #111;
-}
-
-.btn-secondary:hover {
-  background: #d1d5db;
-}
-
-.count-badge {
-  font-size: 13px;
-  color: #6b7280;
-}
-
-/* ── Logo upload row ─────────────────────────────── */
-.logo-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-top: 12px;
-}
-
-.logo-label {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  font-size: 13px;
-  font-weight: 500;
-  color: #374151;
-  cursor: pointer;
-}
-
-.logo-file-input {
-  font-size: 12px;
-  color: #6b7280;
-  cursor: pointer;
-}
-
-.logo-preview {
-  height: 36px;
-  width: auto;
-  border: 1px solid #d1d5db;
-  border-radius: 4px;
-  padding: 2px;
-  background: #fff;
-  object-fit: contain;
-}
-
-.btn-ghost {
-  padding: 4px 10px;
-  border: 1px solid #d1d5db;
-  border-radius: 5px;
-  font-size: 12px;
-  background: transparent;
-  color: #6b7280;
-  cursor: pointer;
-}
-
-.btn-ghost:hover {
-  background: #f3f4f6;
-  color: #374151;
-}
-
 /* ── A4 page preview (screen only) ──────────────── */
 .page-wrapper {
-  background: #d1d5db;
-  padding: 24px 20px 40px;
+  background: #e4e4e7;
+  padding: 32px 20px 48px;
   min-height: 60vh;
 }
 
@@ -147,7 +32,8 @@ body {
   margin: 0 auto;
   padding: 8mm;
   box-sizing: border-box;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.12);
+  border-radius: 4px;
 }
 
 /* ── Barcode grid ────────────────────────────────── */
@@ -216,7 +102,6 @@ body {
     display: none !important;
   }
 
-  /* Strip the screen-only sheet decoration */
   .page-wrapper {
     background: transparent !important;
     padding: 0 !important;
@@ -228,6 +113,7 @@ body {
     padding: 0 !important;
     box-shadow: none !important;
     margin: 0 !important;
+    border-radius: 0 !important;
   }
 
   .barcode-grid {
