@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import bwipjs from "bwip-js/browser";
 
-function BarcodeCard({ value, logo }: { value: string; logo: string }) {
+function BarcodeCard({ value, logo, footerText }: { value: string; logo: string; footerText: string }) {
   const [src, setSrc] = useState("");
   const [err, setErr] = useState("");
 
@@ -36,8 +36,7 @@ function BarcodeCard({ value, logo }: { value: string; logo: string }) {
       ) : src ? (
         <img src={src} alt={value} className="barcode-img" />
       ) : null}
-      <p className="barcode-footer">Delhi-Mahavir Enclave</p>
-      <p className="barcode-footer">9911002528</p>
+      {footerText && <p className="barcode-footer">{footerText}</p>}
     </div>
   );
 }
@@ -46,6 +45,7 @@ export default function Home() {
   const [input, setInput] = useState("");
   const [barcodes, setBarcodes] = useState<string[]>([]);
   const [logo, setLogo] = useState("");
+  const [footerText, setFooterText] = useState("Delhi-Mahavir Enclave | 9911002528");
 
   const generate = () =>
     setBarcodes(input.split("\n").map((l) => l.trim()).filter(Boolean));
@@ -91,6 +91,16 @@ export default function Home() {
             </>
           )}
         </div>
+        <div className="footer-row">
+          <label className="logo-label">Footer Text</label>
+          <input
+            type="text"
+            className="barcode-input"
+            placeholder="Text shown below each barcode…"
+            value={footerText}
+            onChange={(e) => setFooterText(e.target.value)}
+          />
+        </div>
         <div className="control-actions">
           <button className="btn-primary" onClick={generate}>
             Generate
@@ -111,7 +121,7 @@ export default function Home() {
           <div className="a4-sheet">
             <div className="barcode-grid">
               {barcodes.map((v, i) => (
-                <BarcodeCard key={i} value={v} logo={logo} />
+                <BarcodeCard key={i} value={v} logo={logo} footerText={footerText} />
               ))}
             </div>
           </div>
