@@ -37,6 +37,7 @@ function BarcodeCard({ value, logo }: { value: string; logo: string }) {
         <img src={src} alt={value} className="barcode-img" />
       ) : null}
       <p className="barcode-footer">Delhi-Mahavir Enclave</p>
+      <p className="barcode-footer">9911002528</p>
     </div>
   );
 }
